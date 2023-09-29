@@ -1,68 +1,75 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-//define node structure
+/*define node structure*/
 struct node
 {
     int data;
     struct node* next;
 };
 
-struct node* create(int);
-struct node* insert(struct node*,int);
-void printlist(struct node*);
+struct node *head=NULL, *next_node=NULL;
+
+struct node* insert_node(struct node*,int);
+struct node* create_node(int);
+
+/*print the linked list */
+printf("Linked list:\n");
+void print_list(struct node*);
 
 int main()
 {
-    struct node* head=NULL;
     
-    head = insert(head,10);
-    head = insert(head,20);
-    head = insert(head,40);
-    head = insert(head,10);
     
-    /*print the linked list */
-    printf("Linked list:\n");
-    printlist(head);
-    
+    head = insert_node(head,10);
+    next_node = insert_node(head,30);
+    next_node = insert_node(next_node,20);
+    next_node = insert_node(next_node,50);
+
+    /*Print the linked list*/
+    print_list(head);
     return 0;
 }
 
 /* Function to insert values into linked list*/
-struct node* insert(struct node* head,int data)
+struct node* insert_node(struct node* prev_node,int data)
 {
-    struct node* new_node = create(data);
+    struct node* new_node = create_node(data);
     
-    new_node->next = head;
+    if(prev_node != NULL)
+    {
+        prev_node->next = new_node;
+    }
     
+
     return new_node;
 }
 
 /* Function to create the linked list*/
-struct node* create(int num)
+struct node* create_node(int data)
 {
     struct node* new_node = malloc(sizeof(struct node));
-    /* Check if memory allocated*/
+	/* Check if memory allocated*/
     if(new_node == NULL)
     {
-        printf("Error while allocating the memory!\n");
+        printf("Memory did not allocated for the linked list successfully!\n");
     }
-    
-    new_node->data = num;
+    new_node->data = data;
     new_node->next = NULL;
-    
+
     return new_node;
 }
 
 /* Function to print the elements of the linked list*/
-void printlist(struct node* llist)
+void print_list(struct node* head)
 {
-    struct node* new_node = llist;
-    
-    while(new_node != NULL)
+    struct node* new_node = head;
+
+    while(new_node!= NULL)
     {
         printf("%d ",new_node->data);
         new_node = new_node->next;
     }
-    
 }
+
+
