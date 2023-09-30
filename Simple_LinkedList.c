@@ -71,4 +71,3 @@ void print_list(struct node* head)
         new_node = new_node->next;
     }
 }
-
